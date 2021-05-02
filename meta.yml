@@ -1,0 +1,41 @@
+---
+fullname: Asynchronous Test
+shortname: coq-async-test
+opam_name: coq-async-test
+organization: liyishuai
+circleci: true
+ci_extra_dev: true
+ci_test_dependants: true
+synopsis: Testing asynchronous system
+description: From interaction trees to asynchronous tests.
+authors:
+  - name: Yishuai Li
+    email: yishuai@cis.upenn.edu
+license:
+  - fullname: Mozilla Public License 2.0
+    identifier: MPL-2.0
+dependencies:
+  - description: '[Coq JSON](https://github.com/liyishuai/coq-json)'
+    opam:
+      name: coq-json
+  - description: '[ITreeIO](https://github.com/Lysxia/coq-itree-io)'
+    opam:
+      name: coq-itree-io
+      version: '{ >= "0.1.0" }'
+  - description: '[QuickChick](https://github.com/QuickChick/QuickChick/)'
+    opam:
+      name: coq-quickchick
+categories:
+  - name: Miscellaneous/Extracted Programs/Decision procedures
+keywords:
+  - name: extraction
+  - name: reactive systems
+namespace: AsyncTest
+opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
+supported_coq_versions:
+  text: 8.12 or later
+  opam: '{ >= "8.12~" }'
+tested_coq_opam_versions:
+  - version: 'dev'
+  - version: '8.12'
+  - version: '8.13'
