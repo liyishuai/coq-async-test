@@ -5,10 +5,19 @@ From JSON Require Export
 From AsyncTest Require Export
      Jexp.
 
+Global Instance Dec_Eq__connT : Dec_Eq connT.
+Proof. dec_eq. Defined.
+
+Fixpoint shrinkListNoRemove {A} (shr : A -> list A) (l : list A)
+  : list (list A) :=
+  if l is x::xs then (map (flip cons xs) $ shr x) ++
+                    (map (cons x) $ shrinkListNoRemove shr xs)
+  else [].
+
 Definition shrinkValue {K V} (shr : V -> list V)
   : list (K * V) -> list (list (K * V)) :=
-  shrinkListAux (fun kv => let (k, v) := kv : K * V in
-                        map (pair k) $ shr v).
+  shrinkListNoRemove (fun kv => let (k, v) := kv : K * V in
+                             map (pair k) $ shr v).
 
 Instance Shrink__json : Shrink json :=
   {| shrink :=
