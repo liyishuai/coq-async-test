@@ -39,12 +39,12 @@ Definition nth_weak (n : nat) (j : json) : option json :=
 Definition jget_weak : jpath -> json -> option json := jget' nth_weak get_json'.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : json :=
-  odflt JSON__Null $ get l t >>= jget_strong p.
+  odflt JSON__Null $ packet__payload <$> get l t >>= jget_strong p.
 
 Definition tget_weak' (jget : jpath -> json -> option json)
            (l : labelT) (p : jpath) (t : traceT) : json :=
-  odflt (last (pick_some $ map (jget p ∘ snd) t) JSON__Null) $
-        get l t >>= jget p.
+  odflt (last (pick_some $ map (jget p ∘ packet__payload ∘ snd) t) JSON__Null) $
+        packet__payload <$> get l t >>= jget p.
 
 Definition tget_weak : labelT -> jpath -> traceT -> json := tget_weak' jget_weak.
 

@@ -25,3 +25,9 @@ Fixpoint pick_some {A} (l : list (option A)) : list A :=
   | Some a :: l' => a :: pick_some l'
   | None   :: l' =>     pick_some l'
   end.
+
+Fixpoint repeat_list {A} (n : nat) (l : list A) : list A :=
+  match n with
+  | O    => []
+  | S n' => l ++ repeat_list n' l
+  end.

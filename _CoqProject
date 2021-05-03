@@ -2,3 +2,5 @@
 theories/Common.v
 theories/Trace.v
 theories/Jexp.v
+theories/Instances.v
+theories/AsyncTest.v
