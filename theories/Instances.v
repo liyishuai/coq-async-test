@@ -8,10 +8,10 @@ From AsyncTest Require Export
 Global Instance Dec_Eq__connT : Dec_Eq connT.
 Proof. dec_eq. Defined.
 
-Fixpoint shrinkListNoRemove {A} (shr : A -> list A) (l : list A)
-  : list (list A) :=
+Definition shrinkListNoRemove {A} (shr : A -> list A) : list A -> list (list A) :=
+  fix shrinkListNoRemove_ (l : list A) : list (list A) :=
   if l is x::xs then (map (flip cons xs) $ shr x) ++
-                    (map (cons x) $ shrinkListNoRemove shr xs)
+                    (map (cons x) $ shrinkListNoRemove_ xs)
   else [].
 
 Definition shrinkValue {K V} (shr : V -> list V)
@@ -24,8 +24,8 @@ Instance Shrink__json : Shrink json :=
        fix shrink_json (j : json) : list json :=
          match j with
          | JSON__Number n => map JSON__Number $ shrink n
-         (* | JSON__Array  l => map JSON__Array  $ shrinkListAux shrink_json l *)
-         (* | JSON__Object l => map JSON__Object $ shrinkValue   shrink_json l *)
+         | JSON__Array  l => map JSON__Array  $ shrinkListAux shrink_json l
+         | JSON__Object l => map JSON__Object $ shrinkValue   shrink_json l
          | _            => []
          end |}.
 
@@ -34,8 +34,8 @@ Instance Shrink__jexp : Shrink jexp :=
        fix shrink_jexp (e : jexp) : list jexp :=
          match e with
          | Jexp__Const  j => map Jexp__Const  $ shrink j
-         (* | Jexp__Array  l => map Jexp__Array  $ shrinkListAux shrink_jexp l *)
-         (* | Jexp__Object l => map Jexp__Object $ shrinkValue   shrink_jexp l *)
+         | Jexp__Array  l => map Jexp__Array  $ shrinkListAux shrink_jexp l
+         | Jexp__Object l => map Jexp__Object $ shrinkValue   shrink_jexp l
          | _ => []
          end |}.
 
