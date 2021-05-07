@@ -19,13 +19,13 @@ Definition shrinkValue {K V} (shr : V -> list V)
   shrinkListNoRemove (fun kv => let (k, v) := kv : K * V in
                              map (pair k) $ shr v).
 
-Instance Shrink__json : Shrink json :=
+Instance Shrink__IR : Shrink IR :=
   {| shrink :=
-       fix shrink_json (j : json) : list json :=
+       fix shrink_IR (j : IR) : list IR :=
          match j with
          | JSON__Number n => map JSON__Number $ shrink n
-         | JSON__Array  l => map JSON__Array  $ shrinkListAux shrink_json l
-         | JSON__Object l => map JSON__Object $ shrinkValue   shrink_json l
+         | JSON__Array  l => map JSON__Array  $ shrinkListAux shrink_IR l
+         | JSON__Object l => map JSON__Object $ shrinkValue   shrink_IR l
          | _            => []
          end |}.
 

@@ -6,10 +6,12 @@ Variant connT :=
   Conn__Server
 | Conn__Client : clientT -> connT.
 
+Notation IR := json.
+
 Record packetT :=
   Packet { packet__src     : connT;
            packet__dst     : connT;
-           packet__payload : json }.
+           packet__payload : IR }.
 
 Definition labelT := nat.
 

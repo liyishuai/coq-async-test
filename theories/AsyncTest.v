@@ -28,7 +28,7 @@ Notation tE             := (failureE +' @clientE gen_state +' otherE).
 Parameter conn_state    : Type.
 Parameter init_state    : conn_state.
 Parameter recv_response : Monads.stateT conn_state IO (option packetT).
-Parameter send_request  : clientT -> json -> Monads.stateT conn_state IO unit.
+Parameter send_request  : clientT -> IR -> Monads.stateT conn_state IO unit.
 Parameter cleanup       : conn_state -> IO unit.
 
 Parameter gen_step      : gen_state -> traceT -> IO (clientT * jexp).
@@ -123,7 +123,7 @@ Fixpoint execute' {R} (fuel : nat) (s : conn_state)
                 end;;
                 match ostep with
                 | Some ((c, e, l) as step) =>
-                  let req : json    := jexp_to_json_weak trace0 e           in
+                  let req : IR      := jexp_to_IR_weak trace0 e           in
                   let pkt : packetT := Packet (Conn__Client c) Conn__Server req in
                   s' <- fst <$> send_request c req s;;
                   execute' fuel s' osc'
