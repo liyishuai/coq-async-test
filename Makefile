@@ -10,9 +10,7 @@ clean: $(COQMAKEFILE)
 $(COQMAKEFILE): _CoqProject
 	$(COQBIN)coq_makefile -f _CoqProject -o $@
 
-force _CoqProject Makefile: ;
-
-%: $(COQMAKEFILE) force
+install: $(COQMAKEFILE)
 	@+$(MAKE) -f $^ $@
 
-.PHONY: all clean force
+.PHONY: all clean install

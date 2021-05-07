@@ -22,21 +22,27 @@ Inductive jexp :=
 | Jexp__Object : list (string * jexp)             -> jexp
 | Jexp__Ref    : labelT -> jpath                   -> jexp.
 
-Fixpoint jget' (fn : nat -> json -> option json)
-         (fs : string -> json -> option json)
-         (p : jpath) (j : json) : option json :=
+Fixpoint jget_strong (p : jpath) (j : json)
+  : option json :=
   match p with
-  | Jpath__This => Some j
-  | Jpath__Array n p' => fn n j >>= jget' fn fs p'
-  | Jpath__Object s p' => fs s j >>= jget' fn fs p'
+  | Jpath__This        => Some j
+  | Jpath__Array n p'  => get_nth   n j >>= jget_strong p'
+  | Jpath__Object s p' => get_json' s j >>= jget_strong p'
   end.
 
-Example jget_strong : jpath -> json -> option json := jget' get_nth get_json'.
+Definition nth_weak (fp : json -> option json) (n : nat) (j : json)
+  : option json :=
+  if j is JSON__Array l then
+    get_nth n j >>= fp <|>
+    last (map Some $ pick_some (map fp l)) None
+  else None.
 
-Definition nth_weak (n : nat) (j : json) : option json :=
-  if j is JSON__Array l then get_nth (min n $ pred $ length l) j else None.
-
-Definition jget_weak : jpath -> json -> option json := jget' nth_weak get_json'.
+Fixpoint jget_weak (p : jpath) (j : json) : option json :=
+  match p with
+  | Jpath__This        => Some j
+  | Jpath__Array  n p' => nth_weak (jget_weak p') n j
+  | Jpath__Object s p' => get_json' s j >>= jget_weak p'
+  end.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : json :=
   odflt JSON__Null $ packet__payload <$> get l t >>= jget_strong p.
