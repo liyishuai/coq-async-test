@@ -62,5 +62,5 @@ Instance Serialize__jexp : Serialize jexp :=
     | Jexp__Array  l => List $ map jexp_to_sexp l
     | Jexp__Object l => List $ map (fun se => let (s, e) := se : string * jexp in
                                         [Atom s; jexp_to_sexp e]) l
-    | Jexp__Ref  l p => [[Atom "label"; to_sexp l]; [Atom "path"; to_sexp p]]
+    | Jexp__Ref  l p _ => [[Atom "label"; to_sexp l]; [Atom "path"; to_sexp p]]
     end.

@@ -17,7 +17,7 @@ Inductive jexp :=
   Jexp__Const  : json                             -> jexp
 | Jexp__Array  : list jexp                        -> jexp
 | Jexp__Object : list (string * jexp)             -> jexp
-| Jexp__Ref    : labelT -> jpath                   -> jexp.
+| Jexp__Ref    : labelT -> jpath -> (json -> json)   -> jexp.
 
 Definition nth_weak (fp : json -> option json) (n : nat) (j : json)
   : option json :=
@@ -49,7 +49,7 @@ Fixpoint jexp_to_json' (tget : labelT -> jpath -> traceT -> json)
   | Jexp__Const  j => j
   | Jexp__Array  l => JSON__Array  $ map     (jexp_to_json' tget t) l
   | Jexp__Object m => JSON__Object $ map_snd (jexp_to_json' tget t) m
-  | Jexp__Ref  l p => tget l p t
+  | Jexp__Ref  l p f => f $ tget l p t
   end.
 
 Example jexp_to_json_strong : traceT -> jexp -> json := jexp_to_json' tget_strong.
