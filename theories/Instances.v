@@ -39,15 +39,6 @@ Instance Shrink__jexp : Shrink jexp :=
          | _ => []
          end |}.
 
-Instance Serialize__jpath : Serialize jpath :=
-  let fix jpath_to_list (p : jpath) : list sexp :=
-      match p with
-      | Jpath__This       => []
-      | Jpath__Array  n p => to_sexp n::jpath_to_list p
-      | Jpath__Object s p => Atom s   ::jpath_to_list p
-      end in
-  List ∘ jpath_to_list.
-
 Local Open Scope sexp_scope.
 
 Instance Serialize__connT : Serialize connT :=

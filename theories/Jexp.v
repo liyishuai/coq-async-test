@@ -2,6 +2,8 @@ From Parsec Require Export
      Parser.
 From ExtLib Require Export
      Extras.
+From JSON Require Export
+     Jpath.
 From Coq Require Export
      ssr.ssrfun.
 From AsyncTest Require Export
@@ -11,24 +13,11 @@ Export
   FunNotation.
 Open Scope parser_scope.
 
-Inductive jpath :=
-  Jpath__This
-| Jpath__Array  : nat -> jpath -> jpath
-| Jpath__Object : string -> jpath -> jpath.
-
 Inductive jexp :=
   Jexp__Const  : json                             -> jexp
 | Jexp__Array  : list jexp                        -> jexp
 | Jexp__Object : list (string * jexp)             -> jexp
 | Jexp__Ref    : labelT -> jpath                   -> jexp.
-
-Fixpoint jget_strong (p : jpath) (j : json)
-  : option json :=
-  match p with
-  | Jpath__This        => Some j
-  | Jpath__Array n p'  => get_nth   n j >>= jget_strong p'
-  | Jpath__Object s p' => get_json' s j >>= jget_strong p'
-  end.
 
 Definition nth_weak (fp : json -> option json) (n : nat) (j : json)
   : option json :=
@@ -45,7 +34,7 @@ Fixpoint jget_weak (p : jpath) (j : json) : option json :=
   end.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : json :=
-  odflt JSON__Null $ packet__payload <$> get l t >>= jget_strong p.
+  odflt JSON__Null $ packet__payload <$> get l t >>= jget p.
 
 Definition tget_weak' (jget : jpath -> json -> option json)
            (l : labelT) (p : jpath) (t : traceT) : json :=
