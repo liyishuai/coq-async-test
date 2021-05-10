@@ -55,3 +55,10 @@ Fixpoint jexp_to_IR' (tget : labelT -> jpath -> traceT -> IR)
 Example jexp_to_IR_strong : traceT -> jexp -> IR := jexp_to_IR' tget_strong.
 
 Definition jexp_to_IR_weak : traceT -> jexp -> IR := jexp_to_IR' tget_weak.
+
+Definition findpath' (p : jpath) : traceT -> list labelT :=
+  fmap fst ∘ filter (fun lj => if jget_weak p (packet__payload $ snd lj) is Some _
+                          then true else false).
+
+Definition findpath (p : jpath) (f : IR -> IR) (t : traceT) : list jexp :=
+  l <- findpath' p t;; [Jexp__Ref l p f].
