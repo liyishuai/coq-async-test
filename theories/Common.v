@@ -31,3 +31,13 @@ Fixpoint repeat_list {A} (n : nat) (l : list A) : list A :=
   | O    => []
   | S n' => l ++ repeat_list n' l
   end.
+
+Fixpoint filter_inr {A B} (l : list (A + B)) : list B :=
+  match l with
+  | inl _ :: l' => filter_inr l'
+  | inr b :: l' => b :: filter_inr l'
+  | []         => []
+  end.
+
+Definition map_ifr {A B C} (f : A -> B + C) : list A -> list C :=
+  filter_inr ∘ map f.
