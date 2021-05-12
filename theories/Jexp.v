@@ -34,11 +34,11 @@ Fixpoint jget_weak (p : jpath) (j : IR) : option IR :=
   end.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : IR :=
-  odflt JSON__Null $ packet__payload <$> get l t >>= jget p.
+  odflt (JSON__Object []) $ packet__payload <$> get l t >>= jget p.
 
 Definition tget_weak' (jget : jpath -> IR -> option IR)
            (l : labelT) (p : jpath) (t : traceT) : IR :=
-  odflt (last (pick_some $ map (jget p ∘ packet__payload ∘ snd) t) JSON__Null) $
+  odflt (last (pick_some $ map (jget p ∘ packet__payload ∘ snd) t) $ JSON__Object []) $
         packet__payload <$> get l t >>= jget p.
 
 Definition tget_weak : labelT -> jpath -> traceT -> IR := tget_weak' jget_weak.
