@@ -3,7 +3,7 @@ From QuickChick Require Export
 From JSON Require Export
      Instances.
 From AsyncTest Require Export
-     Jexp.
+     Classes.
 
 Global Instance Dec_Eq__connT : Dec_Eq connT.
 Proof. dec_eq. Defined.
@@ -38,6 +38,9 @@ Instance Shrink__jexp : Shrink jexp :=
          | Jexp__Object l => map Jexp__Object $ shrinkValue   shrink_jexp l
          | _ => []
          end |}.
+
+Definition encode_xencode {A} `{XEncode A} : JEncode A :=
+  jexp_to_IR_weak [] ∘ xencode.
 
 Local Open Scope sexp_scope.
 
