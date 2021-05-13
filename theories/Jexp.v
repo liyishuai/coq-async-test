@@ -62,3 +62,18 @@ Definition findpath' (p : jpath) : traceT -> list labelT :=
 
 Definition findpath (p : jpath) (f : IR -> IR) (t : traceT) : list jexp :=
   l <- findpath' p t;; [Jexp__Ref l p f].
+
+Fixpoint IR_to_jexp (j : IR) : jexp :=
+  match j with
+  | JSON__Array l  => Jexp__Array  (map     IR_to_jexp l)
+  | JSON__Object l => Jexp__Object (map_snd IR_to_jexp l)
+  | _            => Jexp__Const   j
+  end.
+
+Fixpoint normalise (e : jexp) : jexp :=
+  match e with
+  | Jexp__Const  j => IR_to_jexp  j
+  | Jexp__Array  l => Jexp__Array  (map     normalise l)
+  | Jexp__Object l => Jexp__Object (map_snd normalise l)
+  | _            => e
+  end.
