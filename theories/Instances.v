@@ -39,10 +39,10 @@ Instance Shrink__jexp : Shrink jexp :=
          | _ => []
          end |}.
 
-Instance XEncode__list {A} `{XEncode A} : XEncode (list A) :=
+Definition xencode__list {A} `{XEncode A} : XEncode (list A) :=
   fun l => Jexp__Array $ map xencode l.
 
-Instance JEncode__Xencode {A} `{XEncode A} : JEncode A :=
+Definition encode__xencode {A} `{XEncode A} : JEncode A :=
   jexp_to_IR_weak [] ∘ xencode.
 
 Local Open Scope sexp_scope.
