@@ -29,8 +29,8 @@ Definition nth_weak (fp : IR -> option IR) (n : nat) (j : IR)
 Fixpoint jget_weak (p : jpath) (j : IR) : option IR :=
   match p with
   | Jpath__This        => Some j
-  | Jpath__Array  n p' => nth_weak (jget_weak p') n j
-  | Jpath__Object s p' => get_json' s j >>= jget_weak p'
+  | Jpath__Array  p' n => nth_weak (jget_weak p') n j
+  | Jpath__Object p' s => get_json' s j >>= jget_weak p'
   end.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : IR :=
