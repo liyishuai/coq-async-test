@@ -39,7 +39,7 @@ Instance Shrink__jexp : Shrink jexp :=
          | _ => []
          end |}.
 
-Definition xencode__list {A} `{XEncode A} : XEncode (list A) :=
+Instance XEncode__list {A} `{XEncode A} : XEncode (list A) :=
   fun l => Jexp__Array $ map xencode l.
 
 Definition encode__xencode {A} `{XEncode A} : JEncode A :=
