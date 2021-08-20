@@ -13,4 +13,7 @@ $(COQMAKEFILE): _CoqProject
 install: $(COQMAKEFILE)
 	@+$(MAKE) -f $^ $@
 
-.PHONY: all clean install
+test:
+	$(MAKE) -C test
+
+.PHONY: all clean install test

@@ -19,18 +19,17 @@ Inductive jexp :=
 | Jexp__Object : list (string * jexp)             -> jexp
 | Jexp__Ref    : labelT -> jpath -> (IR -> IR)       -> jexp.
 
-Definition nth_weak (fp : IR -> option IR) (n : nat) (j : IR)
+Definition nth_weak (n : nat) (j : IR)
   : option IR :=
   if j is JSON__Array l then
-    get_nth n j >>= fp <|>
-    last (map Some $ pick_some (map fp l)) None
+    get_nth n j <|> last (map Some l) None
   else None.
 
 Fixpoint jget_weak (p : jpath) (j : IR) : option IR :=
   match p with
   | Jpath__This        => Some j
-  | Jpath__Array  p' n => nth_weak (jget_weak p') n j
-  | Jpath__Object p' s => get_json' s j >>= jget_weak p'
+  | Jpath__Array  p' n => jget_weak p' j >>= nth_weak n
+  | Jpath__Object p' s => jget_weak p' j >>= get_json' s
   end.
 
 Example tget_strong (l : labelT) (p : jpath) (t : traceT) : IR :=

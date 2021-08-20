@@ -31,6 +31,7 @@ keywords:
   - name: extraction
   - name: reactive systems
 namespace: AsyncTest
+test_target: test
 opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
 supported_coq_versions:
   text: 8.12 or later
