@@ -53,18 +53,19 @@ Definition shrink_execute' (exec : scriptT -> IO (bool * traceT))
        match ss with
        | [] => prerr_endline "<<<<< shrink exhausted >>>>";; ret None
        | sc :: ss' =>
-         prerr_endline "<<<<< current script >>>>>>";;
-         prerr_endline (to_string sc);;
+         prerr_endline (to_string (List.length ss'));;
+         (* prerr_endline "<<<<< current script >>>>>>";; *)
+         (* prerr_endline (to_string sc);; *)
          '(b, tr) <- exec sc;;
          if b : bool
-         then prerr_endline "===== accepting trace =====";;
-              prerr_endline (to_string tr);;
+         then (* prerr_endline "===== accepting trace =====";; *)
+              (* prerr_endline (to_string tr);; *)
               shrink_rec ss'
-         else prerr_endline "===== rejecting trace =====";;
+         else prerr_endline "<<<<< rejecting trace >>>>>";;
               prerr_endline (to_string tr);;
-              prerr_endline "<<<<< shrink ended >>>>>>>>";;
+              (* prerr_endline "<<<<< shrink ended >>>>>>>>";; *)
               ret (Some sc)
-       end) (repeat_list 20 $ shrink init).
+       end) (repeat_list 10 $ shrinkListAux (const []) init).
 
 Definition shrink_execute (first_exec : IO (bool * (scriptT * traceT)))
            (then_exec : scriptT -> IO (bool * traceT)) : IO bool :=
@@ -142,7 +143,7 @@ Fixpoint execute' {R} (fuel : nat) (s : conn_state)
 Definition execute {R} (m : tester_state -> itree tE R)
            (oscript : option scriptT) : IO (bool * (scriptT * traceT)) :=
   tester_init_state <- tester_init;;
-  '(b, s, t') <- execute' 1000000 init_state oscript ([], [])
+  '(b, s, t') <- execute' 5000 init_state oscript ([], [])
                          (m tester_init_state);;
   cleanup s;;
   ret (b, t').
