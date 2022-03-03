@@ -19,6 +19,7 @@ Definition shrinkValue {K V} (shr : V -> list V)
   shrinkListNoRemove (fun kv => let (k, v) := kv : K * V in
                              map (pair k) $ shr v).
 
+#[global]
 Instance Shrink__IR : Shrink IR :=
   {| shrink :=
        fix shrink_IR (j : IR) : list IR :=
@@ -29,6 +30,7 @@ Instance Shrink__IR : Shrink IR :=
          | _            => []
          end |}.
 
+#[global]
 Instance Shrink__jexp : Shrink jexp :=
   {| shrink :=
        fix shrink_jexp (e : jexp) : list jexp :=
@@ -39,6 +41,7 @@ Instance Shrink__jexp : Shrink jexp :=
          | _ => []
          end |}.
 
+#[global]
 Instance XEncode__list {A} `{XEncode A} : XEncode (list A) :=
   fun l => Jexp__Array $ map xencode l.
 
@@ -47,6 +50,7 @@ Definition encode__xencode {A} `{XEncode A} : JEncode A :=
 
 Local Open Scope sexp_scope.
 
+#[global]
 Instance Serialize__connT : Serialize connT :=
   fun c =>
     match c with
@@ -54,6 +58,7 @@ Instance Serialize__connT : Serialize connT :=
     | Conn__Server   => [Atom "Server"]
     end.
 
+#[global]
 Instance Serialize__packetT : Serialize packetT :=
   fun pkt =>
     let 'Packet s d p := pkt in
@@ -61,6 +66,7 @@ Instance Serialize__packetT : Serialize packetT :=
      [Atom "Dst"; to_sexp d];
      [Atom "Msg"; to_sexp p]].
 
+#[global]
 Instance Serialize__jexp : Serialize jexp :=
   fix jexp_to_sexp (e : jexp) : sexp :=
     match e with

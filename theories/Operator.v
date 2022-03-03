@@ -15,6 +15,8 @@ Definition or_jexp' (e f : jexp) : string + jexp :=
 Definition or_jexp (e f : jexp) : jexp :=
   if or_jexp' e f is inr x then x else e.
 
+Declare Scope jexp_scope.
+
 Module XNotations.
 Infix "+" := or_jexp : jexp_scope.
 End XNotations.

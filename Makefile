@@ -5,7 +5,7 @@ all: $(COQMAKEFILE)
 
 clean: $(COQMAKEFILE)
 	@+$(MAKE) -f $^ cleanall
-	@rm -f `cat .gitignore`
+	@rm -f `cat .gitignore` $(COQMAKEFILE) $(COQMAKEFILE).conf
 
 $(COQMAKEFILE): _CoqProject
 	$(COQBIN)coq_makefile -f _CoqProject -o $@
