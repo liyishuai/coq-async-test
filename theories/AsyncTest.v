@@ -107,7 +107,7 @@ Fixpoint execute' {R} (fuel : nat) (s : conn_state)
                           length (filter (fun lpkt => packet__dst (snd lpkt) = dst?)
                                          trace0) in
                       let label := nth prevs (map fst lreqs) O in
-                      (script0, trace0 ++ [(label, p)])
+                      (script0, trace0 ++ [(S label, p)])
                     | None => acc
                     end in
                 execute' fuel s' oscript acc' (k op)
@@ -118,7 +118,8 @@ Fixpoint execute' {R} (fuel : nat) (s : conn_state)
                 | Some (sc :: script') =>
                   ret (Some sc, Some script')
                 | None =>
-                  let l : labelT := S $ fold_left max (map snd script0) O in
+                  let nextOdd (n: nat) : nat := if Nat.even n then S n else S (S n) in
+                  let l : labelT := nextOdd $ fold_left max (map snd script0) O in
                   step <- gen_step gs trace0;;
                   ret (Some (step, l), None)
                 end;;
