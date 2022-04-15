@@ -56,8 +56,8 @@ workflows:
         name: "Coq 8.12-ocaml-4.11-flambda"
         coq: "coqorg/coq:8.12-ocaml-4.11-flambda"
     - build:
-        name: "Coq 8.13-ocaml-4.11-flambda"
-        coq: "coqorg/coq:8.13-ocaml-4.11-flambda"
+        name: "Coq 8.13-ocaml-4.12-flambda"
+        coq: "coqorg/coq:8.13-ocaml-4.12-flambda"
     - build:
         name: "Coq 8.14-ocaml-4.12-flambda"
         coq: "coqorg/coq:8.14-ocaml-4.12-flambda"
