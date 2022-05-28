@@ -17,3 +17,7 @@ test:
 	$(MAKE) -C test
 
 .PHONY: all clean install test
+
+publish%:
+	opam publish --packages-directory=released/packages \
+		--repo=coq/opam-coq-archive --tag=v$* -v $* liyishuai/coq-async-test
