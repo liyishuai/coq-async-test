@@ -4,7 +4,6 @@ shortname: coq-async-test
 opam_name: coq-async-test
 organization: liyishuai
 circleci: true
-ci_extra_dev: true
 ci_test_dependants: true
 synopsis: Testing asynchronous system
 description: From interaction trees to asynchronous tests.
