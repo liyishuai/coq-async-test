@@ -19,7 +19,7 @@ From interaction trees to asynchronous tests.
 - Author(s):
   - Yishuai Li
 - License: [Mozilla Public License 2.0](LICENSE)
-- Compatible Coq versions: 8.12 or later
+- Compatible Coq versions: 8.14 or later
 - Additional dependencies:
   - [Coq JSON](https://github.com/liyishuai/coq-json)
   - [ITreeIO](https://github.com/Lysxia/coq-itree-io)

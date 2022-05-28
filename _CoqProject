@@ -1,5 +1,6 @@
 -Q theories AsyncTest
 -arg -w -arg -notation-overridden
+-native-compiler no
 theories/Common.v
 theories/Trace.v
 theories/Jexp.v

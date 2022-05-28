@@ -18,7 +18,7 @@ build: [make "-j%{jobs}%"]
 run-test: [make "-j%{jobs}%" "test"]
 install: [make "install"]
 depends: [
-  "coq" { >= "8.12~" }
+  "coq" { >= "8.14~" }
   "coq-json" 
   "coq-itree-io" { >= "0.1.0" }
   "coq-quickchick" 
