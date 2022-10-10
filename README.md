@@ -4,10 +4,10 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 --->
 # Asynchronous Test
 
-[![CircleCI][circleci-shield]][circleci-link]
+[![Docker CI][docker-action-shield]][docker-action-link]
 
-[circleci-shield]: https://circleci.com/gh/liyishuai/coq-async-test.svg?style=svg
-[circleci-link]:   https://circleci.com/gh/liyishuai/coq-async-test
+[docker-action-shield]: https://github.com/liyishuai/coq-async-test/workflows/Docker%20CI/badge.svg?branch=master
+[docker-action-link]: https://github.com/liyishuai/coq-async-test/actions?query=workflow:"Docker%20CI"
 
 
 
@@ -17,7 +17,7 @@ From interaction trees to asynchronous tests.
 ## Meta
 
 - Author(s):
-  - Yishuai Li
+  - Yishuai Li [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0002-5728-5903)
 - License: [Mozilla Public License 2.0](LICENSE)
 - Compatible Coq versions: 8.14 or later
 - Additional dependencies:
@@ -25,7 +25,8 @@ From interaction trees to asynchronous tests.
   - [ITreeIO](https://github.com/Lysxia/coq-itree-io)
   - [QuickChick](https://github.com/QuickChick/QuickChick/)
 - Coq namespace: `AsyncTest`
-- Related publication(s): none
+- Related publication(s):
+  - [Testing by Dualization](https://repository.upenn.edu/edissertations/5376) doi:[10.48550/arXiv.2210.01047](https://doi.org/10.48550/arXiv.2210.01047)
 
 ## Building and installation instructions
 

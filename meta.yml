@@ -3,13 +3,14 @@ fullname: Asynchronous Test
 shortname: coq-async-test
 opam_name: coq-async-test
 organization: liyishuai
-circleci: true
+action: true
 ci_test_dependants: true
 synopsis: Testing asynchronous system
 description: From interaction trees to asynchronous tests.
 authors:
   - name: Yishuai Li
-    email: yishuai@cis.upenn.edu
+    email: liyishuai.lys@alibaba-inc.com
+    orcid: 0000-0002-5728-5903
 license:
   - fullname: Mozilla Public License 2.0
     identifier: MPL-2.0
@@ -32,12 +33,21 @@ keywords:
   - name: extraction
   - name: reactive systems
 namespace: AsyncTest
+publications:
+  - pub_title: Testing by Dualization
+    pub_url: https://repository.upenn.edu/edissertations/5376
+    pub_doi: 10.48550/arXiv.2210.01047
 test_target: test
-opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
+opam-file-maintainer: 'Yishuai Li <liyishuai.lys@alibaba-inc.com>'
 supported_coq_versions:
   text: 8.14 or later
   opam: '{ >= "8.14~" }'
 tested_coq_opam_versions:
-  - version: '8.14-ocaml-4.12-flambda'
-  - version: '8.15-ocaml-4.12-flambda'
-  - version: 'dev-ocaml-4.12-flambda'
+  - version: '8.14'
+  - version: '8.15'
+  - version: '8.16'
+  - version: 'dev'
+action_appendix: |2-
+            export: 'OPAMWITHTEST'
+          env:
+            OPAMWITHTEST: true
