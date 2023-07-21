@@ -26,7 +26,7 @@ From interaction trees to asynchronous tests.
   - [QuickChick](https://github.com/QuickChick/QuickChick/)
 - Coq namespace: `AsyncTest`
 - Related publication(s):
-  - [Testing by Dualization](https://repository.upenn.edu/edissertations/5376) doi:[10.48550/arXiv.2210.01047](https://doi.org/10.48550/arXiv.2210.01047)
+  - [Testing by Dualization](https://repository.upenn.edu/handle/20.500.14332/32046) doi:[20.500.14332/32046](https://doi.org/20.500.14332/32046)
 
 ## Building and installation instructions
 

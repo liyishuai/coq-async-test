@@ -35,8 +35,8 @@ keywords:
 namespace: AsyncTest
 publications:
   - pub_title: Testing by Dualization
-    pub_url: https://repository.upenn.edu/edissertations/5376
-    pub_doi: 10.48550/arXiv.2210.01047
+    pub_url: https://repository.upenn.edu/handle/20.500.14332/32046
+    pub_doi: 20.500.14332/32046
 test_target: test
 opam-file-maintainer: 'Yishuai Li <liyishuai.lys@alibaba-inc.com>'
 supported_coq_versions:
