@@ -9,7 +9,7 @@ synopsis: Testing asynchronous system
 description: From interaction trees to asynchronous tests.
 authors:
   - name: Yishuai Li
-    email: liyishuai.lys@alibaba-inc.com
+    email: yishuai.li@pingcap.com
     orcid: 0000-0002-5728-5903
 license:
   - fullname: Mozilla Public License 2.0
@@ -38,7 +38,7 @@ publications:
     pub_url: https://repository.upenn.edu/handle/20.500.14332/32046
     pub_doi: 20.500.14332/32046
 test_target: test
-opam-file-maintainer: 'Yishuai Li <liyishuai.lys@alibaba-inc.com>'
+opam-file-maintainer: 'Yishuai Li <yishuai.li@pingcap.com>'
 supported_coq_versions:
   text: 8.14 or later
   opam: '{ >= "8.14~" }'
@@ -48,6 +48,11 @@ tested_coq_opam_versions:
   - version: '8.16'
   - version: '8.17'
   - version: '8.18'
+  - version: '8.19'
+  - version: '8.20'
+tested_rocq_opam_versions:
+  - version: '9.0'
+  - version: '9.1'
   - version: 'dev'
 action_appendix: |2-
             export: 'OPAMWITHTEST'
